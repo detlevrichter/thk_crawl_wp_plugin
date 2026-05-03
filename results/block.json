@@ -1,0 +1,9 @@
+{
+  "apiVersion": 2,
+  "name": "competency/results",
+  "title": "Competency Results",
+  "category": "widgets",
+  "icon": "star",
+  "description": "Zeigt Ergebnisse basierend auf GET-Parametern",
+  "editorScript": "competency-results-editor"
+}

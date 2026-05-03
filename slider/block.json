@@ -1,0 +1,9 @@
+{
+  "apiVersion": 2,
+  "name": "competency/slider",
+  "title": "Competency Slider",
+  "category": "widgets",
+  "icon": "dashicons-slides",
+  "editorScript": "competency-slider-editor",
+  "script": "competency-slider-frontend"
+}
