@@ -64,7 +64,9 @@ class Blocks{
             <table class="competency-table">
                 <thead>
                     <tr>
-                        <th>Aktiv</th>
+                        <th class="toggle-col" title="Aktiv / Deaktiviert">
+                            <span class="dashicons dashicons-yes-alt"></span>
+                        </th>
                         <th></th>
                         <th>Interesse</th>
                         <th>Fähigkeit</th>
@@ -84,9 +86,10 @@ class Blocks{
                         ? intval($_GET[$level_slug])
                         : 50;
                     $is_active =
-                            isset($_GET[$row->slug]) ||
-                            isset($_GET[$level_slug]) ||
-                            empty($_GET); // beim ersten Laden aktiv
+                        empty($_GET) ||                       // gar keine GET-Parameter
+                        count($_GET) === 1 && isset($_GET['Kategorie']) || // nur Kategorie vorhanden
+                        isset($_GET[$row->slug]) ||
+                        isset($_GET[$level_slug]);
                 ?>
 
                     <tr class="competency-row">
@@ -104,7 +107,7 @@ class Blocks{
                         <td>
                             <input
                                 type="range"
-                                min="0"
+                                min="1"
                                 max="100"
                                 value="<?php echo esc_attr($interest_value); ?>"
                                 class="competency-range"
@@ -118,7 +121,7 @@ class Blocks{
                         <td>
                             <input
                                 type="range"
-                                min="0"
+                                min="1"
                                 max="100"
                                 value="<?php echo esc_attr($level_value); ?>"
                                 class="competency-range"
@@ -192,12 +195,10 @@ class Blocks{
 
                     <ul class="competency-result-meta">
                         <li><strong>Übereinstimmung:</strong> <?php echo esc_html(round($result->match_total * 100,0)); ?>%</li>
-                        <?php if($result->duration): ?>
-                            <li><strong>Dauer:</strong> <?php echo esc_html($result->duration); ?></li>
-                        <?php endif; ?>
-                        <?php if($result->place): ?>
-                            <li><strong>Ort:</strong> <?php echo esc_html($result->place); ?></li>
-                        <?php endif; ?>
+
+                        <?php   ?>
+                            <li><strong>Anbieter:</strong> <?php echo $result->provider;  ?></li>
+                        <?php  ?>
                         <li><a href="<?php echo esc_html($result->url); ?>" target="_blanc"><strong>zum Angebot</strong></a>   </li>
                     </ul>
                 </article>

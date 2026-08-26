@@ -60,10 +60,10 @@ class Offers{
         )
         */
         foreach ($_GET as $key => $value) {
-            if (!isset($allowed_keys[$key])) {
+            $testkey = str_replace('_level','',$key);
+            if (!isset($allowed_keys[$testkey])) {
                continue;
             }
-
 
             if(stristr($key,'_level') === false){
                 $conditions[] = "WHEN '{$key}' THEN score * " . intval($value) / 100;
@@ -96,11 +96,10 @@ class Offers{
         }
        // Match_Skill = (1 - ABS(Offer.Level - Skills))
        $skillSql = "SELECT *, 
-                    (1 - ABS(of.level - {$averageLevel})) as match_skill ,
-                    match_interest * {$percentInteresse} + (1 - ABS(of.level - {$averageLevel}))  * {$percentSkill} as match_total
+                    (1 - ABS({$averageLevel} - of.level)) as match_skill ,
+                    match_interest * {$percentInteresse} + (1 - ABS({$averageLevel} - of.level ))  * {$percentSkill} as match_total
                     FROM {$wpdb->prefix}offers as of
                     INNER JOIN ({$competencieSql}) as ok ON of.id = ok.offer_id
-                    INNER JOIN offer_dates as od on of.id = od.offer_id
                     WHERE of.title != \"\"
                     ORDER BY match_total desc
                     ";

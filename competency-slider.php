@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Competency Slider Block
  * Description: Sidebar-Slider basierend auf competency_types mit AJAX-Auswertung
- * Version: 1.0
+ * Version: 1.1
  */
 
 use CompetencySlider\Classes\Blocks;
@@ -63,7 +63,7 @@ add_action('wp_ajax_nopriv_get_offers', 'competency_get_offers');
 
 function competency_get_offers() {
     global $wpdb;
-     $sql = (new \CompetencySlider\Classes\Offers())::countSql([0.8,0.6,0.4,0.2]);
+     $sql = (new \CompetencySlider\Classes\Offers())::countSql([0.8,0.6,0.4,0.2,0]);
      $rows = $wpdb->get_results($sql);
      $row = $rows[0];
      $return = '';
@@ -71,6 +71,8 @@ function competency_get_offers() {
      $return .= $row->p60 . " Ergebnisse mit einer Übereinstimmung zwischen 60% und 80%<br>";
      $return .= $row->p40 . " Ergebnisse mit einer Übereinstimmung zwischen 40% und 60%<br>";
      $return .= $row->p20 . " Ergebnisse mit einer Übereinstimmung zwischen 20% und 40%<br>";
+     $return .= $row->p0 . " Ergebnisse mit einer Übereinstimmung zwischen 0 und 20%<br>";
+     $return .= ($row->p0 + $row->p20 +  $row->p40 + $row->p60 + $row->p80) . " Gesamt<br>";
     echo '<p>  '.$return.'</p>';
     wp_die();
 }
