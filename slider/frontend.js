@@ -38,8 +38,10 @@ jQuery(function ($) {
     }
 
     function updateResultsLink(values) {
-        const params = new URLSearchParams(values).toString();
-        $('.results-link').attr('href', '/results/?' + params);
+        const params = new URLSearchParams(values);
+        const kategorie = new URLSearchParams(window.location.search).get("Kategorie") || "Default";
+        params.set('Kategorie', kategorie);
+        $('.results-link').attr('href', '/results/?' + params.toString());
     }
 
     function valuesToQueryString(values) {
@@ -52,9 +54,11 @@ jQuery(function ($) {
         updateUrl(values);
         updateResultsLink(values);
 
-        const query = valuesToQueryString(values);
+        const kategorie = new URLSearchParams(window.location.search).get("Kategorie") || "Default";
+        const params = new URLSearchParams(values);
+        params.set('Kategorie', kategorie);
 
-        $.post(CompetencySlider.ajaxurl + "?" + query, {
+        $.post(CompetencySlider.ajaxurl + "?" + params.toString(), {
             action: 'get_offers',
             values: values
         }, function (response) {
