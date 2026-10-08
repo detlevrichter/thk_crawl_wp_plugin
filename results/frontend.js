@@ -207,6 +207,15 @@
 
 		/* --------------------------------------------------- Zielgruppe */
 
+		// Link "Detailed settings": aktuelle Auswahl aus der URL mitnehmen
+		// (frueher ein Inline-onclick, das mit einer strikten CSP kollidiert).
+		sidebar.addEventListener('click', function (event) {
+			var link = event.target.closest('a[data-keep-query]');
+			if (link && sidebar.contains(link) && window.location.search) {
+				link.href = link.href.split('?')[0] + window.location.search;
+			}
+		});
+
 		sidebar.addEventListener('click', function (event) {
 			var pill = event.target.closest('.cs-sidebar__pill');
 			if (!pill || !sidebar.contains(pill)) {

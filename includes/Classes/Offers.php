@@ -178,8 +178,10 @@ class Offers{
                 continue;
             }
 
-            $personLevel  = isset($personLevels[$slug]) ? $personLevels[$slug] : 0.5;
-            $conditions[] = "WHEN '{$slug}' THEN IF(ok.score > {$minScore}, ok.score * {$interest} * {$percentInteresse} + (1 - ABS({$personLevel} - o2.level)) * {$percentSkill}, 0)";
+            $personLevel  = isset($personLevels[$slug]) ? (float) $personLevels[$slug] : 0.5;
+            $interest     = (float) $interest;
+            $safeSlug     = esc_sql($slug);
+            $conditions[] = "WHEN '{$safeSlug}' THEN IF(ok.score > {$minScore}, ok.score * {$interest} * {$percentInteresse} + (1 - ABS({$personLevel} - o2.level)) * {$percentSkill}, 0)";
         }
 
         // Kein Kriterium mit Interesse > 0 (oder Zielgruppe ohne Kompetenzen):
@@ -193,6 +195,8 @@ class Offers{
                     ";
         }
 
+        $safeCategory = esc_sql($category_slug);
+
         $matchSql = "SELECT ok.offer_id,
                         MAX(CASE ok.competency
                             " . join("\n                            ", $conditions) . "
@@ -201,7 +205,7 @@ class Offers{
                      FROM {$wpdb->prefix}offer_competencies AS ok
                      INNER JOIN {$wpdb->prefix}offers AS o2 ON o2.id = ok.offer_id
                      INNER JOIN {$wpdb->prefix}category_competency_type AS c2c ON c2c.competency_type_slug = ok.competency
-                     WHERE c2c.category_slug = '{$category_slug}'
+                     WHERE c2c.category_slug = '{$safeCategory}'
                      GROUP BY ok.offer_id";
 
         /*

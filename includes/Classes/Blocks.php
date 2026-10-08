@@ -667,7 +667,7 @@ class Blocks
                 <a
                     class="cs-sidebar__title cs-sidebar__settings-link"
                     href="<?php echo esc_url(add_query_arg('Kategorie', $categorySlug, self::settings_url())); ?>"
-                    onclick="if (location.search) { this.href = this.href.split('?')[0] + location.search; }"
+                    data-keep-query="1"
                 >
                     <?php esc_html_e('Detailed settings', 'competency-slider'); ?>
                 </a>

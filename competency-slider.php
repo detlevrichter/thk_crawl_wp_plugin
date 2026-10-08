@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Competency Slider International
  * Description: Continuing education database – choose target group, criteria and interests/skills, then show matching offers. Design based on the Penpot handoff, styled with the design tokens of the active theme. Bilingual via Polylang.
- * Version: 2.3
+ * Version: 2.3.1
  * Requires at least: 6.4
  * Requires PHP: 7.4
  * Text Domain: competency-slider
@@ -152,7 +152,7 @@ function competency_get_offers() {
     I18n::apply_request_language();
 
     // Ohne mindestens ein Kriterium lässt sich keine Auswertung bilden.
-    $criteria_params = array_diff_key($_GET, ['Kategorie' => '', 'lang' => '']);
+    $criteria_params = array_diff_key($_GET, ['Kategorie' => '', 'lang' => '', 'action' => '']);
 
     if (empty($criteria_params)) {
         wp_die('', '', ['response' => 200]);
