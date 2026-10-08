@@ -57,18 +57,18 @@ class Offers{
         an einer Quelle aus crawl_master; categories_crawl_master ordnet die
         Quellen den Zielgruppen zu. 'Default' (Alle Zielgruppen) filtert nicht
         und zeigt auch Angebote, deren Quelle keiner Zielgruppe zugeordnet ist.
-        Beide Tabellen haben kein WordPress-Praefix (anders als die wp_*-Views).
+        Beide Tabellen tragen wie alle anderen das WordPress-Praefix.
         */
         $audienceSql = '';
 
         if ($audience_slug !== 'Default') {
             $audienceSql = $wpdb->prepare(
-                ' AND of.crawl_list_id IN (
+                " AND of.crawl_list_id IN (
                     SELECT cl.id
-                    FROM crawl_list AS cl
-                    INNER JOIN categories_crawl_master AS ccm ON ccm.crawl_master_id = cl.master_id
+                    FROM {$wpdb->prefix}crawl_list AS cl
+                    INNER JOIN {$wpdb->prefix}categories_crawl_master AS ccm ON ccm.crawl_master_id = cl.master_id
                     WHERE ccm.categories_slug = %s
-                )',
+                )",
                 $audience_slug
             );
         }

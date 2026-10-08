@@ -57,10 +57,10 @@ Das Plugin legt keine Tabellen an und greift ausschließlich **lesend** auf die 
 | `<präfix>competency_types` | `slug`, `label`, `type` | Kriterien. Als Regler erscheinen Einträge mit `type = 'float'` (außer `level`). |
 | `<präfix>categories` | `id`, `slug`, `title` | Zielgruppen. `Default` steht für „Alle Zielgruppen“. |
 | `<präfix>category_competency_type` | `category_slug`, `competency_type_slug` | Zuordnung von Kriterien zu Zielgruppen |
-| `crawl_list` (**ohne** Präfix) | `id`, `master_id` | Verbindung Angebot → Quelle (Zielgruppenfilter) |
-| `categories_crawl_master` (**ohne** Präfix) | `categories_slug`, `crawl_master_id` | Zuordnung Zielgruppe → Quelle |
+| `<präfix>crawl_list` | `id`, `master_id` | Verbindung Angebot → Quelle (Zielgruppenfilter) |
+| `<präfix>categories_crawl_master` | `categories_slug`, `crawl_master_id` | Zuordnung Zielgruppe → Quelle |
 
-`<präfix>` ist das WordPress-Tabellenpräfix (`$table_prefix` in der `wp-config.php`, meist `wp_`). Die beiden Tabellen für den Zielgruppenfilter werden ohne Präfix angesprochen.
+`<präfix>` ist das WordPress-Tabellenpräfix (`$table_prefix` in der `wp-config.php`, meist `wp_`).
 
 Welche Tabellen und Spalten der Crawler tatsächlich erzeugt, steht in dessen README. Fehlende oder abweichend benannte Tabellen (z. B. `competency_types`, `categories`, `category_competency_type`, `categories_crawl_master`) müssen ergänzt bzw. per View angepasst werden.
 
@@ -73,16 +73,14 @@ Platzhalter: `crawl_db` = Datenbank des Crawlers, `wordpress_db` = Datenbank von
 ```sql
 USE wordpress_db;
 
--- Tabellen mit WordPress-Präfix
+-- Alle Tabellen mit WordPress-Präfix
 CREATE OR REPLACE VIEW wp_offers                   AS SELECT * FROM crawl_db.offers;
 CREATE OR REPLACE VIEW wp_offer_competencies       AS SELECT * FROM crawl_db.offer_competencies;
 CREATE OR REPLACE VIEW wp_competency_types         AS SELECT * FROM crawl_db.competency_types;
 CREATE OR REPLACE VIEW wp_categories               AS SELECT * FROM crawl_db.categories;
 CREATE OR REPLACE VIEW wp_category_competency_type AS SELECT * FROM crawl_db.category_competency_type;
-
--- Tabellen ohne Präfix
-CREATE OR REPLACE VIEW crawl_list                  AS SELECT * FROM crawl_db.crawl_list;
-CREATE OR REPLACE VIEW categories_crawl_master     AS SELECT * FROM crawl_db.categories_crawl_master;
+CREATE OR REPLACE VIEW wp_crawl_list               AS SELECT * FROM crawl_db.crawl_list;
+CREATE OR REPLACE VIEW wp_categories_crawl_master  AS SELECT * FROM crawl_db.categories_crawl_master;
 ```
 
 Hinweise:
@@ -153,7 +151,6 @@ Alle über `admin-ajax.php`, auch für nicht angemeldete Besucher:
 | `get_offers` | Live-Vorschau (Anzahl je Match-Bereich) unter den Reglern |
 | `get_results` | Ergebnisliste neu laden |
 | `get_sidebar` | Seitenleiste bei Zielgruppenwechsel neu laden |
-
 
 ## Verwandte Projekte
 
