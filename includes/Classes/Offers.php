@@ -66,7 +66,7 @@ class Offers{
             }
 
             if(stristr($key,'_level') === false){
-                $conditions[] = "WHEN '{$key}' THEN score * " . intval($value) / 100;
+                $conditions[] = "WHEN '" . esc_sql($key) . "' THEN score * " . intval($value) / 100;
                 $values[]     = intval($value) / 100;
 
             }else{
@@ -84,7 +84,7 @@ class Offers{
 
         $competencieSql = "SELECT offer_id, {$matchCompetencieSql} FROM  {$wpdb->prefix}offer_competencies as ok 
                             INNER JOIN {$wpdb->prefix}category_competency_type as c2c ON c2c.competency_type_slug = ok.competency 
-                            WHERE category_slug = '{$category_slug}' 
+                            WHERE category_slug = '" . esc_sql($category_slug) . "' 
                             GROUP BY offer_id
                             ";
  

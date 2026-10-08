@@ -65,6 +65,7 @@ function competency_get_offers() {
     global $wpdb;
      $sql = (new \CompetencySlider\Classes\Offers())::countSql([0.8,0.6,0.4,0.2,0]);
      $rows = $wpdb->get_results($sql);
+     if (empty($rows)) { wp_die(); }
      $row = $rows[0];
      $return = '';
      $return .= $row->p80 . " Ergebnisse mit einer Übereinstimmung von > 80% <br>";
