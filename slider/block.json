@@ -4,6 +4,9 @@
   "title": "Competency Slider",
   "category": "widgets",
   "icon": "dashicons-slides",
+  "description": "Choose a target group, select criteria and set interests and skills.",
+  "textdomain": "competency-slider",
   "editorScript": "competency-slider-editor",
-  "script": "competency-slider-frontend"
+  "script": "competency-slider-frontend",
+  "style": "competency-slider-style"
 }

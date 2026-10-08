@@ -1,0 +1,20 @@
+{
+    "translation-revision-date": "2026-09-04 18:31:33+0000",
+    "generator": "competency-slider/build-translations.php",
+    "domain": "messages",
+    "locale_data": {
+        "messages": {
+            "": {
+                "domain": "messages",
+                "lang": "de",
+                "plural-forms": "nplurals=2; plural=n != 1;"
+            },
+            "Interests and skills": [
+                "Interessen und Fähigkeiten"
+            ],
+            "Target group, criteria selection and the interest/skill sliders are rendered on the front end.": [
+                "Zielgruppe, Kriterienauswahl und die Regler für Interesse und Fähigkeit werden im Frontend ausgegeben."
+            ]
+        }
+    }
+}

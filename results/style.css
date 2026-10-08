@@ -1,0 +1,442 @@
+/**
+ * Competency Results – Frontend Styles
+ *
+ * "Katalog Komponente" (Kurskachel) und "Uebereinstimmung Tag" aus dem
+ * Penpot-Handoff, umgesetzt mit den Design-Tokens des aktiven Themes.
+ */
+
+.cs-results {
+	--cs-base: var(--wp--preset--color--base, #ffffff);
+	--cs-contrast: var(--wp--preset--color--contrast, #363634);
+	--cs-primary: var(--wp--preset--color--primary, #005d9f);
+	--cs-green: var(--wp--preset--color--green, #009342);
+	--cs-yellow: var(--wp--preset--color--yellow, #f9b122);
+	--cs-grey: var(--wp--preset--color--grey, #797a7d);
+	--cs-surface: var(--wp--preset--color--surface, #e6e6e6);
+
+	--cs-radius-card: 16px;
+	--cs-radius-panel: var(--dk-radius-card, 24px);
+	--cs-radius-pill: var(--dk-radius-pill, 100px);
+
+	--cs-font: var(--wp--preset--font-family--sans, inherit);
+	--cs-size-label: var(--wp--preset--font-size--x-small, 1rem);
+	--cs-size-tag: var(--wp--preset--font-size--small, 1.125rem);
+	--cs-size-title: var(--wp--preset--font-size--large, 1.5rem);
+
+	--cs-gap-xs: var(--wp--preset--spacing--20, 0.75rem);
+	--cs-gap-s: var(--wp--preset--spacing--30, 1.25rem);
+	--cs-gap-m: var(--wp--preset--spacing--40, 1.5rem);
+	--cs-gap-l: var(--wp--preset--spacing--50, 2.5rem);
+
+	font-family: var(--cs-font);
+	color: var(--cs-contrast);
+	display: flex;
+	flex-direction: column;
+	gap: var(--cs-gap-l);
+}
+
+.cs-results *,
+.cs-results *::before,
+.cs-results *::after {
+	box-sizing: border-box;
+}
+
+/* ---------------------------------------------------------------- Layout */
+
+/* Sidebar links, Ergebnisliste rechts. Die Sidebar traegt zusaetzlich
+   .cs-block (siehe slider/style.css), damit die dort wiederverwendeten
+   .cs-slider/.cs-step-Klassen ihre Variablen (Spurhoehe, Thumb-Groesse, ...)
+   bekommen. */
+.cs-results-layout {
+	display: grid;
+	grid-template-columns: minmax(240px, 300px) 1fr;
+	align-items: start;
+	column-gap: 4rem;
+	row-gap: var(--cs-gap-l);
+}
+
+.cs-results[data-role="results-panel"].is-loading,
+.cs-sidebar__inner.is-loading {
+	opacity: 0.6;
+}
+
+/* Sticky mit eigenem Scrollbereich: die Sidebar kann durch die vielen
+   Kriterien leicht laenger als der Viewport werden. Ohne eigenen Scroll
+   waeren tiefer liegende Inhalte (Sprachfilter, "Anwenden"-Button) nie
+   erreichbar, weil ein sticky-Element als Ganzes fixiert wird. */
+.cs-sidebar {
+	position: sticky;
+	top: var(--cs-gap-m);
+	max-height: calc(100vh - 2 * var(--cs-gap-m));
+	overflow-y: auto;
+}
+
+.cs-sidebar__inner {
+	display: flex;
+	flex-direction: column;
+	gap: var(--cs-gap-l);
+	padding: var(--cs-gap-m);
+	border-radius: var(--cs-radius-panel, 24px);
+	background: color-mix(in srgb, var(--cs-surface) 45%, var(--cs-base));
+}
+
+/* .cs-sidebar__section ist ein <details>-Element: jeder Bereich der Sidebar
+   (Zielgruppe, Interessen & Faehigkeiten, Sprache) laesst sich per Klick auf
+   den Titel einzeln einklappen, siehe Design-Entwurf. */
+.cs-sidebar__title {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: var(--cs-gap-xs);
+	margin: 0;
+	font-size: var(--cs-size-tag);
+	font-weight: 700;
+	line-height: 1.2;
+	cursor: pointer;
+	list-style: none;
+}
+
+.cs-sidebar__title::-webkit-details-marker {
+	display: none;
+}
+
+.cs-sidebar__title svg {
+	width: 20px;
+	height: 20px;
+	flex-shrink: 0;
+	fill: currentColor;
+	transition: transform 0.15s ease;
+}
+
+.cs-sidebar__section[open] > .cs-sidebar__title {
+	margin-bottom: var(--cs-gap-s);
+}
+
+.cs-sidebar__section[open] > .cs-sidebar__title svg {
+	transform: rotate(180deg);
+}
+
+.cs-sidebar__section + .cs-sidebar__section {
+	padding-top: var(--cs-gap-m);
+	border-top: 1px solid var(--cs-line, currentColor);
+}
+
+.cs-sidebar__audience {
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--cs-gap-xs);
+}
+
+/* Zielgruppen-Pill: kompakter als die grossen Kacheln der Einstellungen-Seite,
+   da hier nur wenig Sidebar-Breite zur Verfuegung steht. */
+.cs-sidebar__pill {
+	padding: 0.5rem 1.125rem;
+	border: 1px solid var(--cs-contrast);
+	border-radius: var(--cs-radius-pill, 100px);
+	background: var(--cs-base);
+	color: var(--cs-contrast);
+	font-size: var(--cs-size-label);
+	font-weight: 500;
+	line-height: 1.4;
+	text-decoration: none;
+}
+
+.cs-sidebar__pill:hover,
+.cs-sidebar__pill:focus {
+	background: var(--cs-surface);
+	text-decoration: none;
+}
+
+.cs-sidebar__pill.is-active {
+	background: var(--cs-contrast);
+	border-color: var(--cs-contrast);
+	color: var(--cs-base);
+}
+
+.cs-sidebar__form {
+	display: flex;
+	flex-direction: column;
+	gap: var(--cs-gap-m);
+}
+
+.cs-sidebar__criterion {
+	display: flex;
+	flex-direction: column;
+	gap: var(--cs-gap-xs);
+}
+
+/* Slider in der Sidebar: Label+Wert immer oberhalb von Minus/Track/Plus
+   (nicht wie auf der Einstellungen-Seite daneben), damit der Regler selbst
+   die volle Sidebar-Breite bekommt und sich gut bedienen laesst. */
+.cs-sidebar__criterion .cs-slider {
+	grid-template-columns: var(--cs-control-size, 40px) 1fr var(--cs-control-size, 40px);
+	grid-template-areas:
+		"label label value"
+		"minus track plus";
+	row-gap: 0.5rem;
+	min-height: auto;
+}
+
+.cs-sidebar__criterion .cs-slider__label {
+	grid-area: label;
+}
+
+.cs-sidebar__criterion .cs-slider__value {
+	grid-area: value;
+	text-align: end;
+}
+
+.cs-sidebar__criterion .cs-slider__minus {
+	grid-area: minus;
+}
+
+.cs-sidebar__criterion .cs-slider__control {
+	grid-area: track;
+}
+
+.cs-sidebar__criterion .cs-slider__plus {
+	grid-area: plus;
+}
+
+.cs-sidebar__sliders {
+	display: flex;
+	flex-direction: column;
+	gap: var(--cs-gap-xs);
+	padding-inline-start: 2rem;
+}
+
+.cs-sidebar__actions {
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--cs-gap-xs);
+}
+
+.cs-sidebar__checkbox {
+	display: flex;
+	align-items: center;
+	gap: 0.625rem;
+	font-size: var(--cs-size-label);
+	cursor: pointer;
+}
+
+.cs-sidebar__checkbox + .cs-sidebar__checkbox {
+	margin-top: var(--cs-gap-xs);
+}
+
+.cs-sidebar__checkbox input {
+	width: 1.25rem;
+	height: 1.25rem;
+	accent-color: var(--cs-primary);
+}
+
+/* ------------------------------------------------------------ Kopfbereich */
+
+.cs-results__head {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: baseline;
+	justify-content: space-between;
+	gap: var(--cs-gap-s);
+}
+
+.cs-results__count {
+	margin: 0;
+	font-size: var(--cs-size-label);
+	color: var(--cs-grey);
+}
+
+.cs-results__count strong {
+	color: var(--cs-contrast);
+	font-weight: 700;
+}
+
+/* ------------------------------------------------------------ Kurskacheln */
+
+.cs-cards {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(min(100%, 20.5rem), 1fr));
+	gap: var(--cs-gap-m);
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.cs-cards > li {
+	display: flex;
+}
+
+.cs-cards > li > .cs-card {
+	flex: 1;
+}
+
+/* Vom Sprachfilter ausgeblendete Karte: das [hidden]-Attribut muss das
+   display:flex oben gewinnen. */
+.cs-cards > li[hidden] {
+	display: none !important;
+}
+
+/* Weiterbildungsdatenbank Kurskachel: Radius 16, helle Flaeche. */
+.cs-card {
+	display: flex;
+	flex-direction: column;
+	gap: var(--cs-gap-xs);
+	padding: var(--cs-gap-m);
+	border-radius: var(--cs-radius-card);
+	background: color-mix(in srgb, var(--cs-surface) 45%, var(--cs-base));
+}
+
+.cs-card__title {
+	margin: 0;
+	font-size: var(--cs-size-title);
+	font-weight: 700;
+	line-height: 1.2;
+}
+
+.cs-card__description {
+	margin: 0;
+	font-size: var(--cs-size-label);
+	line-height: 1.6;
+	display: -webkit-box;
+	-webkit-line-clamp: 5;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+}
+
+.cs-card__meta {
+	margin: 0;
+	font-size: var(--cs-size-label);
+	color: var(--cs-grey);
+}
+
+.cs-card__meta b {
+	color: var(--cs-contrast);
+	font-weight: 700;
+}
+
+.cs-card__foot {
+	margin-top: auto;
+	padding-top: var(--cs-gap-xs);
+}
+
+/* Uebereinstimmung Tag: Pill, Radius 24, weisser Grund mit Rand. */
+.cs-match {
+	align-self: flex-start;
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
+	padding: 0.375rem 1rem;
+	border: 1px solid var(--cs-contrast);
+	border-radius: var(--cs-radius-pill);
+	background: var(--cs-base);
+	font-size: var(--cs-size-label);
+	font-weight: 700;
+	line-height: 1.2;
+	white-space: nowrap;
+}
+
+.cs-match::before {
+	content: "";
+	width: 0.75rem;
+	height: 0.75rem;
+	border-radius: 50%;
+	background: var(--cs-match-color, var(--cs-grey));
+}
+
+.cs-match--high {
+	--cs-match-color: var(--cs-green);
+}
+
+.cs-match--medium {
+	--cs-match-color: var(--cs-yellow);
+}
+
+.cs-match--low {
+	--cs-match-color: var(--cs-grey);
+}
+
+/* ---------------------------------------------------------------- Buttons */
+
+.cs-btn {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
+	padding: 16px 30px;
+	border: 2px solid transparent;
+	border-radius: var(--dk-radius-button, 10px);
+	background: var(--cs-contrast);
+	color: var(--cs-base);
+	font-family: inherit;
+	font-size: var(--cs-size-tag);
+	font-weight: 800;
+	line-height: 1.2;
+	text-decoration: none;
+	cursor: pointer;
+	white-space: nowrap;
+}
+
+.cs-btn:hover,
+.cs-btn:focus {
+	background: var(--cs-primary);
+	border-color: var(--cs-primary);
+	color: var(--cs-base);
+	text-decoration: none;
+}
+
+.cs-btn--secondary {
+	background: transparent;
+	border-color: var(--cs-contrast);
+	color: var(--cs-contrast);
+	font-weight: 700;
+	padding: 14px 28px;
+}
+
+.cs-btn--secondary:hover,
+.cs-btn--secondary:focus {
+	background: var(--cs-contrast);
+	color: var(--cs-base);
+}
+
+.cs-btn--compact {
+	padding: 10px 20px;
+	font-size: var(--cs-size-label);
+	font-weight: 700;
+}
+
+.cs-results :where(a, button):focus-visible {
+	outline: 3px solid var(--dk-focus, var(--cs-primary));
+	outline-offset: 3px;
+}
+
+.cs-empty {
+	margin: 0;
+	padding: var(--cs-gap-m);
+	border-radius: var(--cs-radius-panel);
+	background: var(--cs-surface);
+	font-size: var(--cs-size-label);
+}
+
+@media (max-width: 781px) {
+	.cs-card .cs-btn {
+		width: 100%;
+		justify-content: center;
+	}
+
+	/* Sidebar schiebt sich in voller Breite ueber die Ergebnisliste. Der
+	   groessere column-gap fuer die Desktop-Spalten wird hier wieder auf den
+	   normalen Abstand zurueckgesetzt, da gestapelt nur noch row-gap zaehlt. */
+	.cs-results-layout {
+		grid-template-columns: 1fr;
+		column-gap: var(--cs-gap-l);
+	}
+
+	.cs-sidebar {
+		position: static;
+		max-height: none;
+		overflow-y: visible;
+	}
+
+	.cs-sidebar__actions .cs-btn {
+		flex: 1 1 100%;
+		justify-content: center;
+	}
+}

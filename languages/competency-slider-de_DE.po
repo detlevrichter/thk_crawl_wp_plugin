@@ -1,0 +1,214 @@
+# German translation for the Competency Slider Block plugin.
+# Source strings are English; the German site uses this file.
+msgid ""
+msgstr ""
+"Project-Id-Version: Competency Slider Block 2.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-09-04 18:31+0000\n"
+"PO-Revision-Date: 2026-09-04 18:31+0000\n"
+"Last-Translator: \n"
+"Language-Team: Deutsch\n"
+"Language: de_DE\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Domain: competency-slider\n"
+
+#: competency-slider.php
+msgid "Competency Slider Block"
+msgstr "Competency Slider Block"
+
+#: slider/block.json
+msgid "Competency Slider"
+msgstr "Kompetenz-Slider"
+
+#: slider/block.json
+msgid "Choose a target group, select criteria and set interests and skills."
+msgstr "Zielgruppe wählen, Kriterien auswählen und Interessen sowie Fähigkeiten einstellen."
+
+#: results/block.json
+msgid "Competency Results"
+msgstr "Kompetenz-Ergebnisse"
+
+#: results/block.json
+msgid "Personalised continuing education catalogue – shows offers matching the selected criteria."
+msgstr "Personalisierter Weiterbildungskatalog – zeigt Angebote passend zu den gewählten Kriterien."
+
+#: includes/Classes/Blocks.php
+msgid "Decrease %s"
+msgstr "%s verringern"
+
+#: includes/Classes/Blocks.php
+msgid "Increase %s"
+msgstr "%s erhöhen"
+
+#: includes/Classes/Blocks.php
+msgid "No criteria have been defined for this target group yet."
+msgstr "Für diese Zielgruppe sind noch keine Kriterien hinterlegt."
+
+#: includes/Classes/Blocks.php
+msgid "Criteria selection"
+msgstr "Kriterienauswahl"
+
+#: includes/Classes/Blocks.php
+msgid "Which interests or skills appeal to you, or which do you already have?"
+msgstr "Welche Interessen oder Fähigkeiten interessieren Sie oder können Sie bereits?"
+
+#: includes/Classes/Blocks.php
+msgid "%1$s of %2$s criteria selected."
+msgstr "%1$s von %2$s Kriterien ausgewählt."
+
+#: includes/Classes/Blocks.php
+msgid "Adjust interests & skills"
+msgstr "Interessen & Fähigkeiten anpassen"
+
+#: includes/Classes/Blocks.php
+msgid "View personalised catalogue"
+msgstr "Personalisierten Katalog anschauen"
+
+#: includes/Classes/Blocks.php
+msgid "Interests and skills"
+msgstr "Interessen und Fähigkeiten"
+
+#: includes/Classes/Blocks.php
+msgid "Adjust your interests and skills."
+msgstr "Passen Sie Ihre Interessen und Fähigkeiten an."
+
+#: includes/Classes/Blocks.php
+msgid "Selected criteria"
+msgstr "Ausgewählte Kriterien"
+
+#: includes/Classes/Blocks.php
+msgctxt "step counter: 01 of 12"
+msgid "of"
+msgstr "von"
+
+#: includes/Classes/Blocks.php
+msgid "Back"
+msgstr "Zurück"
+
+#: includes/Classes/Blocks.php
+msgid "Next"
+msgstr "Weiter"
+
+#: includes/Classes/Blocks.php
+msgid "Include this criterion"
+msgstr "Kriterium berücksichtigen"
+
+#: includes/Classes/Blocks.php
+msgid "Interest"
+msgstr "Interesse"
+
+#: includes/Classes/Blocks.php
+msgid "Skill"
+msgstr "Fähigkeit"
+
+#: includes/Classes/Blocks.php
+msgid "Change criteria"
+msgstr "Kriterien ändern"
+
+#: includes/Classes/Blocks.php
+msgid "Show my catalogue"
+msgstr "Individuellen Katalog anzeigen"
+
+#: includes/Classes/Blocks.php
+msgid "Target group"
+msgstr "Zielgruppenauswahl"
+
+#: includes/Classes/Blocks.php
+msgid "Select the target group you belong to:"
+msgstr "Wählen Sie aus, zu welcher Zielgruppe Sie gehören:"
+
+#: includes/Classes/Blocks.php
+msgid "All target groups"
+msgstr "Alle Zielgruppen"
+
+#: includes/Classes/Blocks.php
+msgid "No interests and skills have been submitted yet."
+msgstr "Es wurden noch keine Interessen und Fähigkeiten übergeben."
+
+#: includes/Classes/Blocks.php
+msgid "Set interests & skills"
+msgstr "Interessen & Fähigkeiten angeben"
+
+#: includes/Classes/Blocks.php
+msgid "%s offer matches your profile."
+msgid_plural "%s offers match your profile."
+msgstr[0] "%s Angebot passt zu Ihrem Profil."
+msgstr[1] "%s Angebote passen zu Ihrem Profil."
+
+#: includes/Classes/Blocks.php
+msgid "You are on the right track – would you like to refine your search?"
+msgstr "Sie sind auf dem besten Weg – möchten Sie die Suche noch verfeinern?"
+
+#: includes/Classes/Blocks.php
+msgid "You can adjust your filters again at any time."
+msgstr "Sie haben jederzeit die Möglichkeit, Ihre Filter nochmal zu bearbeiten."
+
+#: includes/Classes/Blocks.php
+msgid "Adjust criteria"
+msgstr "Kriterien anpassen"
+
+#: includes/Classes/Blocks.php
+msgid "No offers were found for this selection. Adjust your criteria to see more results."
+msgstr "Zu dieser Auswahl wurden keine Angebote gefunden. Passen Sie Ihre Kriterien an, um mehr Ergebnisse zu sehen."
+
+#: includes/Classes/Blocks.php
+msgid "Match: %s%%"
+msgstr "Übereinstimmung: %s%%"
+
+#: includes/Classes/Blocks.php
+msgid "Provider:"
+msgstr "Anbieter:"
+
+#: includes/Classes/Blocks.php
+msgid "Go to offer"
+msgstr "Zum Angebot"
+
+#: competency-slider.php
+msgid "No criterion is selected. Use \"Change criteria\" to select at least one."
+msgstr "Es ist kein Kriterium ausgewählt. Wählen Sie über „Kriterien ändern“ mindestens ein Kriterium aus."
+
+#: competency-slider.php
+msgid "over 80%"
+msgstr "über 80 %"
+
+#: competency-slider.php
+msgid "60 – 80%"
+msgstr "60 – 80 %"
+
+#: competency-slider.php
+msgid "40 – 60%"
+msgstr "40 – 60 %"
+
+#: competency-slider.php
+msgid "20 – 40%"
+msgstr "20 – 40 %"
+
+#: competency-slider.php
+msgid "under 20%"
+msgstr "unter 20 %"
+
+#: competency-slider.php
+msgid "%s matching offer found"
+msgid_plural "%s matching offers found"
+msgstr[0] "%s passendes Angebot gefunden"
+msgstr[1] "%s passende Angebote gefunden"
+
+#: competency-slider.php
+msgid "Match with your interests and skills:"
+msgstr "Übereinstimmung mit Ihren Interessen und Fähigkeiten:"
+
+#: slider/editor.js
+msgid "Target group, criteria selection and the interest/skill sliders are rendered on the front end."
+msgstr "Zielgruppe, Kriterienauswahl und die Regler für Interesse und Fähigkeit werden im Frontend ausgegeben."
+
+#: results/editor.js
+msgid "Personalised continuing education catalogue"
+msgstr "Personalisierter Weiterbildungskatalog"
+
+#: results/editor.js
+msgid "The offer cards are rendered on the front end from the URL parameters."
+msgstr "Die Angebotskacheln werden im Frontend anhand der URL-Parameter erzeugt."
+

@@ -1,0 +1,20 @@
+{
+    "translation-revision-date": "2026-09-04 18:31:33+0000",
+    "generator": "competency-slider/build-translations.php",
+    "domain": "messages",
+    "locale_data": {
+        "messages": {
+            "": {
+                "domain": "messages",
+                "lang": "de",
+                "plural-forms": "nplurals=2; plural=n != 1;"
+            },
+            "Personalised continuing education catalogue": [
+                "Personalisierter Weiterbildungskatalog"
+            ],
+            "The offer cards are rendered on the front end from the URL parameters.": [
+                "Die Angebotskacheln werden im Frontend anhand der URL-Parameter erzeugt."
+            ]
+        }
+    }
+}

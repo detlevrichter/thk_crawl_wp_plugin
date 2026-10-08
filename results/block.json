@@ -4,6 +4,9 @@
   "title": "Competency Results",
   "category": "widgets",
   "icon": "star",
-  "description": "Zeigt Ergebnisse basierend auf GET-Parametern",
-  "editorScript": "competency-results-editor"
+  "description": "Personalised continuing education catalogue – shows offers matching the selected criteria.",
+  "textdomain": "competency-slider",
+  "editorScript": "competency-results-editor",
+  "script": "competency-results-frontend",
+  "style": "competency-results-style"
 }
